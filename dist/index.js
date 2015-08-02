@@ -9,7 +9,6 @@ numeral = require('numeral');
 NumeralInput = React.createClass({
   displayName: 'NumeralInput',
   propTypes: {
-    value: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
     fmt: React.PropTypes.string
   },
