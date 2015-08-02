@@ -4,6 +4,7 @@ It is very tiny commponent which is a replacement of HTML input element for post
 
 ex. 1000000 -> 1,000,000
 
+[![react-numeral-input](http://i.imgur.com/7eUVb7z.gif)](http://i.imgur.com/7eUVb7z.gif)
 # Dependency
 
 * React.js
@@ -25,4 +26,29 @@ npm install react-numeral-input
 <NumeralInput value={this.state.numeralVal} className="" placeholder="" onChange={this.onChange} />
 ```
 
+# complete example
+
+```jsx
+let NumeralInput = require('react-numeral-input');
+
+module.exports = React.createClass({
+  getInitialState() {
+    return {
+      numeralVal: 1000000
+    }
+  },
+  onChange(val){
+    this.setState( {numeralVal:val});
+  },
+  render() {
+    return (
+      <NumeralInput
+        value={this.state.numeralVal}
+        className="form-control"
+        placeholder=""
+        onChange={this.onChange} />
+    )
+  }
+});
+```
 
