@@ -52,3 +52,20 @@ module.exports = React.createClass({
 });
 ```
 
+
+# Options
+You can set any original input props. such as minlength, maxlength. For example:
+
+```jsx
+<NumeralInput value={this.state.numeralVal} className="" placeholder="" onChange={this.onChange} minLength={2} maxLength={10}/>
+```
+
+### fmt(:string)
+
+Default: "0,0"
+
+It is passed to configure numeral format, You can find more information from [Numeral.js](http://numeraljs.com/).
+
+### onChange(:function)
+
+Callback when value is changed, you will receieve unformated number (1000000 instead of 1,000,000).
