@@ -1,6 +1,6 @@
 # react-numeral-input
 
-It is very tiny commponent which is a replacement of HTML input element for post-editing format of number values.
+It is a very tiny component which is a replacement of HTML input element for post-editing format of number values.
 
 ex. 1000000 -> 1,000,000
 

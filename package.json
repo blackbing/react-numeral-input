@@ -1,7 +1,7 @@
 {
   "name": "react-numeral-input",
   "description": "numeral input",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Bingo Yang <blackbing@gmail.com>",
   "browserify": {
     "transform": []
@@ -12,7 +12,8 @@
   "dependencies": {},
   "devDependencies": {
     "coffee-react": "^4.0.0",
-    "coffee-script": "^1.9.3"
+    "coffee-script": "^1.9.3",
+    "webpack": "^1.10.5"
   },
   "homepage": "https://github.com/blackbing/react-numeral-input",
   "keywords": [
@@ -32,7 +33,7 @@
     "url": "git+https://github.com/blackbing/react-numeral-input.git"
   },
   "scripts": {
-    "build": "cjsx -cb -o dist src/index.cjsx",
+    "build": "cjsx -cb -o dist src/index.cjsx && webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

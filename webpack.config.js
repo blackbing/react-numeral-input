@@ -10,21 +10,20 @@ module.exports = {
     contentBase: './examples/',
     hot: true
   },
-	output: {
+        output: {
     path: path.join(__dirname, 'examples'),
-		filename: 'bundle.js',
-	},
-	resolveLoader: {
-		modulesDirectories: ['node_modules']
-	},
-	resolve: {
-		extensions: ['', '.js', '.cjsx', '.coffee']
-	},
+                filename: 'bundle.js',
+        },
+        resolveLoader: {
+                modulesDirectories: ['node_modules']
+        },
+        resolve: {
+                extensions: ['', '.js', '.cjsx', '.coffee']
+        },
   plugins: [
   ],
-	module: {
-		loaders: [
-      { test: /\.css$/, loaders: ['style', 'css']},
+        module: {
+                loaders: [
       { test: /\.cjsx$/, loaders: ['coffee', 'cjsx']},
       { test: /\.coffee$/, loader: 'coffee' }
     ]
