@@ -4,39 +4,10 @@
     <meta charset="UTF-8">
     <title>React-numeral-input by blackbing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <style>
-      .page-header {
-        margin: 0px;
-      }
-      .input-lg {
-          height: 60px;
-          padding: 10px 16px;
-          font-size: 18px;
-          line-height: 1.3333333;
-          border-radius: 6px;
-      }
-      .form-control {
-          display: block;
-          width: 100%;
-          height: 60px;
-          padding: 6px 12px;
-          font-size: 30px;
-          line-height: 1.42857143;
-          color: #555;
-          background-color: #fff;
-          background-image: none;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-          -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-          -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-      }
-    </style>
   </head>
   <body>
     <section class="page-header">
@@ -51,18 +22,11 @@
       <h1>
 <a id="react-numeral-input" class="anchor" href="#react-numeral-input" aria-hidden="true"><span class="octicon octicon-link"></span></a>react-numeral-input</h1>
 
-<p>It is very tiny commponent which is a replacement of HTML input element for post-editing format of number values.</p>
+<p>It is a very tiny component which is a replacement of HTML input element for post-editing format of number values.</p>
 
 <p>ex. 1000000 -&gt; 1,000,000</p>
 
 <p><a href="http://i.imgur.com/7eUVb7z.gif"><img src="http://i.imgur.com/7eUVb7z.gif" alt="react-numeral-input"></a></p>
-<h1>
-<a id="livedemo" class="anchor" href="#livedemo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Live Demo</h1>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div id="app"></div>
-  </div>
-</div>
 
 <h1>
 <a id="dependency" class="anchor" href="#dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependency</h1>
@@ -111,6 +75,25 @@
   }
 });</pre></div>
 
+<h1>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h1>
+
+<p>You can set any original input props. such as minlength, maxlength. For example:</p>
+
+<div class="highlight highlight-jsx"><pre><span class="pl-k">&lt;</span>NumeralInput value<span class="pl-k">=</span>{<span class="pl-v">this</span>.state.numeralVal} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> placeholder<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-c1">onChange</span><span class="pl-k">=</span>{<span class="pl-v">this</span>.<span class="pl-c1">onChange</span>} minLength<span class="pl-k">=</span>{<span class="pl-c1">2</span>} maxLength<span class="pl-k">=</span>{<span class="pl-c1">10</span>}/<span class="pl-k">&gt;</span></pre></div>
+
+<h3>
+<a id="fmtstring" class="anchor" href="#fmtstring" aria-hidden="true"><span class="octicon octicon-link"></span></a>fmt(:string)</h3>
+
+<p>Default: "0,0"</p>
+
+<p>It is passed to configure numeral format, You can find more information from <a href="http://numeraljs.com/">Numeral.js</a>.</p>
+
+<h3>
+<a id="onchangefunction" class="anchor" href="#onchangefunction" aria-hidden="true"><span class="octicon octicon-link"></span></a>onChange(:function)</h3>
+
+<p>Callback when value is changed, you will receieve unformated number (1000000 instead of 1,000,000).</p>
+
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/blackbing/react-numeral-input">React-numeral-input</a> is maintained by <a href="https://github.com/blackbing">blackbing</a>.</span>
 
@@ -119,8 +102,7 @@
 
     </section>
 
-
-    <script src="./examples/bundle.js"></script>
+  
   </body>
 </html>
 
