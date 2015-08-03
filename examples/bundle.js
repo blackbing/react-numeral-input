@@ -64,7 +64,7 @@
 	  render: function(){
 	    return NumeralInput({
 	      value: this.state.numeralVal,
-	      className: "form-control",
+	      className: "form-control input-lg",
 	      placeholder: "feed me number",
 	      onChange:this.onChange
 	    });
