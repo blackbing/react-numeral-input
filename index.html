@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>React-numeral-input by blackbing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">React-numeral-input</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/blackbing/react-numeral-input" class="btn">View on GitHub</a>
+      <a href="https://github.com/blackbing/react-numeral-input/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/blackbing/react-numeral-input/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="react-numeral-input" class="anchor" href="#react-numeral-input" aria-hidden="true"><span class="octicon octicon-link"></span></a>react-numeral-input</h1>
+
+<p>It is very tiny commponent which is a replacement of HTML input element for post-editing format of number values.</p>
+
+<p>ex. 1000000 -&gt; 1,000,000</p>
+
+<p><a href="http://i.imgur.com/7eUVb7z.gif"><img src="http://i.imgur.com/7eUVb7z.gif" alt="react-numeral-input"></a></p>
+
+<h1>
+<a id="dependency" class="anchor" href="#dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependency</h1>
+
+<ul>
+<li>React.js</li>
+<li><a href="http://numeraljs.com/">Numeral.js</a></li>
+</ul>
+
+<h1>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>install</h1>
+
+<div class="highlight highlight-shell"><pre>npm install react-numeral-input</pre></div>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<div class="highlight highlight-jsx"><pre><span class="pl-c">// replace original input from</span>
+<span class="pl-k">&lt;</span>input value<span class="pl-k">=</span>{<span class="pl-v">this</span>.state.numeralVal} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> placeholder<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-c1">onChange</span><span class="pl-k">=</span>{<span class="pl-v">this</span>.<span class="pl-c1">onChange</span>} /<span class="pl-k">&gt;</span>
+
+<span class="pl-c">// like this</span>
+<span class="pl-k">&lt;</span>NumeralInput value<span class="pl-k">=</span>{<span class="pl-v">this</span>.state.numeralVal} className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> placeholder<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-c1">onChange</span><span class="pl-k">=</span>{<span class="pl-v">this</span>.<span class="pl-c1">onChange</span>} /<span class="pl-k">&gt;</span></pre></div>
+
+<h1>
+<a id="complete-example" class="anchor" href="#complete-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>complete example</h1>
+
+<div class="highlight highlight-jsx"><pre><span class="pl-k">let</span> NumeralInput <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>react-numeral-input<span class="pl-pds">'</span></span>);
+
+<span class="pl-c1">module</span>.exports <span class="pl-k">=</span> React.createClass({
+  <span class="pl-en">getInitialState</span>() {
+    <span class="pl-k">return</span> {
+      numeralVal<span class="pl-k">:</span> <span class="pl-c1">1000000</span>
+    }
+  },
+  <span class="pl-en">onChange</span>(<span class="pl-smi">val</span>){
+    <span class="pl-v">this</span>.setState( {numeralVal<span class="pl-k">:</span>val});
+  },
+  <span class="pl-en">render</span>() {
+    <span class="pl-k">return</span> (
+      <span class="pl-k">&lt;</span>NumeralInput
+        value<span class="pl-k">=</span>{<span class="pl-v">this</span>.state.numeralVal}
+        className<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>form-control<span class="pl-pds">"</span></span>
+        placeholder<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+        <span class="pl-c1">onChange</span><span class="pl-k">=</span>{<span class="pl-v">this</span>.<span class="pl-c1">onChange</span>} /<span class="pl-k">&gt;</span>
+    )
+  }
+});</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/blackbing/react-numeral-input">React-numeral-input</a> is maintained by <a href="https://github.com/blackbing">blackbing</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
