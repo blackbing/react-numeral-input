@@ -31,7 +31,7 @@ npm install react-numeral-input
 <NumeralInput value={this.state.numeralVal} className="" placeholder="" onChange={this.onChange} />
 ```
 
-# complete example
+# Example
 
 ```jsx
 let NumeralInput = require('react-numeral-input');
