@@ -2,6 +2,7 @@
 React = require('react')
 numeral = require 'numeral'
 
+re = /[^0-9km,]+/
 NumeralInput = React.createClass
   displayName : 'NumeralInput'
   propTypes:
@@ -20,17 +21,26 @@ NumeralInput = React.createClass
     numeral(val).format(@props.fmt)
 
   componentWillReceiveProps :(nextProps) ->
+    val = nextProps.value
+
+    if not re.test(val)
+      val = @getNumeralValue(val)
     @setState
-      value: @getNumeralValue(nextProps.value)
+      value: val
 
   changeHandler:()->
+    val = @getDOMNode().value
     #1,000,000 -> 1000000
-    inputValue = numeral(@getDOMNode().value).value()
+    reTest = re.test(val)
+    if not reTest
+      val = numeral(val).value()
+
     #parentNode onChange function
     @setState(
-      value: inputValue
+      value: val
     , =>
-      @props.onChange(inputValue) if @props.onChange
+      if @props.onChange
+        @props.onChange(val)
     )
 
   render : ->
