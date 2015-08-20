@@ -3,6 +3,28 @@ React = require('react')
 numeral = require 'numeral'
 
 re = /[^0-9km,]+/
+getCaretPosition = (oField) ->
+  iCaretPos = 0
+  if document.selection
+    oField.focus()
+    oSel = document.selection.createRange()
+    oSel.moveStart 'character', -oField.value.length
+    iCaretPos = oSel.text.length
+  else if oField.selectionStart or oField.selectionStart == '0'
+    iCaretPos = oField.selectionStart
+  iCaretPos
+
+setCaretPosition = (oField, index) ->
+  if oField.setSelectionRange
+    oField.setSelectionRange(index, index)
+  else
+    range = oField.createTextRange()
+    range.collapse(true)
+    range.moveEnd('character', index)
+    range.moveStart('character', index)
+    range.select()
+
+
 NumeralInput = React.createClass
   displayName : 'NumeralInput'
   propTypes:
@@ -11,6 +33,23 @@ NumeralInput = React.createClass
 
   getDefaultProps: ->
     fmt: '0,0'
+
+  focusOnChar: (val, index)->
+    formatVal = numeral(val).format(@props.fmt)
+    dotCount=0
+
+    i = 0
+    finalIndex = formatVal.length
+    while i < formatVal.length
+      char = formatVal[i]
+      if char is ','
+        dotCount++
+      if i is (index + dotCount)
+        finalIndex = i
+        break
+
+      i++
+    return finalIndex
 
   getInitialState: ->
     inputStyle:@props.inputStyle
@@ -21,22 +60,37 @@ NumeralInput = React.createClass
     numeral(val).format(@props.fmt)
 
   componentWillReceiveProps :(nextProps) ->
+    node = @getDOMNode()
     val = nextProps.value
+    #pos = @state.pos
 
     if not re.test(val)
-      val = @getNumeralValue(val)
-    @setState
-      value: val
+      formatVal = @getNumeralValue(val)
+      dot_sp = formatVal.split(',')
+
+    @setState(
+      value: formatVal
+    , =>
+      setCaretPosition(node, @state.pos)
+    )
 
   changeHandler:()->
-    val = @getDOMNode().value
+    node = @getDOMNode()
+    val = node.value
+    pos = getCaretPosition(node)
+
     #1,000,000 -> 1000000
     reTest = re.test(val)
     if not reTest
       val = numeral(val).value()
+      if ((@state.value+'').length <= (val+'').length)
+        pos = @focusOnChar(val, pos)
+        pos++
+
 
     #parentNode onChange function
     @setState(
+      pos: pos
       value: val
     , =>
       if @props.onChange
