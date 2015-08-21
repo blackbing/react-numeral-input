@@ -46,6 +46,14 @@ NumeralInput = React.createClass({
       fmt: '0,0'
     };
   },
+  formatPos: function(val, index) {
+    var dotCount, sub;
+    val = numeral().unformat(val);
+    val = numeral(val).format(this.props.fmt);
+    sub = val.substr(0, index);
+    dotCount = sub.split(',').length - 1;
+    return index - dotCount;
+  },
   focusOnChar: function(val, index) {
     var char, dotCount, finalIndex, formatVal, i;
     formatVal = numeral(val).format(this.props.fmt);
@@ -54,14 +62,17 @@ NumeralInput = React.createClass({
     finalIndex = formatVal.length;
     while (i < formatVal.length) {
       char = formatVal[i];
-      if (char === ',') {
-        dotCount++;
-      }
       if (i === (index + dotCount)) {
         finalIndex = i;
         break;
       }
+      if (char === ',') {
+        dotCount++;
+      }
       i++;
+    }
+    if (!finalIndex) {
+      finalIndex = 1;
     }
     return finalIndex;
   },
@@ -92,16 +103,21 @@ NumeralInput = React.createClass({
     })(this));
   },
   changeHandler: function() {
-    var node, pos, reTest, val;
+    var node, oVal, pos, reTest, val;
     node = this.getDOMNode();
     val = node.value;
     pos = getCaretPosition(node);
+    pos = this.formatPos(this.state.value, pos);
     reTest = re.test(val);
     if (!reTest) {
       val = numeral(val).value();
-      if ((this.state.value + '').length <= (val + '').length) {
+      oVal = numeral(this.state.val);
+      if ((oVal + '').length < (val + '').length) {
+        pos = this.focusOnChar(val, pos++);
+      } else if ((oVal + '').length > (val + '').length) {
+        pos = this.focusOnChar(val, pos--);
+      } else {
         pos = this.focusOnChar(val, pos);
-        pos++;
       }
     }
     return this.setState({
