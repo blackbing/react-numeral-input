@@ -34,6 +34,20 @@ NumeralInput = React.createClass
   getDefaultProps: ->
     fmt: '0,0'
 
+
+  # 1,234,567  , 4
+  # ->
+  # 1234567    , 3
+  formatPos: (val, index)->
+    #unformat
+    val = numeral().unformat(val)
+    #format
+    val = numeral(val).format(@props.fmt)
+    sub = val.substr(0, index)
+    dotCount  = sub.split(',').length - 1
+    index-dotCount
+
+
   focusOnChar: (val, index)->
     formatVal = numeral(val).format(@props.fmt)
     dotCount=0
@@ -42,13 +56,15 @@ NumeralInput = React.createClass
     finalIndex = formatVal.length
     while i < formatVal.length
       char = formatVal[i]
-      if char is ','
-        dotCount++
       if i is (index + dotCount)
         finalIndex = i
         break
+      if char is ','
+        dotCount++
 
       i++
+
+    finalIndex = 1 if not finalIndex
     return finalIndex
 
   getInitialState: ->
@@ -78,15 +94,20 @@ NumeralInput = React.createClass
     node = @getDOMNode()
     val = node.value
     pos = getCaretPosition(node)
+    pos = @formatPos(@state.value, pos)
+
 
     #1,000,000 -> 1000000
     reTest = re.test(val)
     if not reTest
       val = numeral(val).value()
-      if ((@state.value+'').length <= (val+'').length)
+      oVal = numeral(@state.val)
+      if ((oVal+'').length < (val+'').length)
+        pos = @focusOnChar(val, pos++)
+      else if ((oVal+'').length > (val+'').length)
+        pos = @focusOnChar(val, pos--)
+      else
         pos = @focusOnChar(val, pos)
-        pos++
-
 
     #parentNode onChange function
     @setState(
