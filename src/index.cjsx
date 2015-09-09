@@ -80,38 +80,40 @@ NumeralInput = React.createClass
     val = nextProps.value
     #pos = @state.pos
 
-    if not re.test(val)
-      formatVal = @getNumeralValue(val)
-      dot_sp = formatVal.split(',')
+    #if not re.test(val)
+      #formatVal = @getNumeralValue(val)
+      #dot_sp = formatVal.split(',')
+    formatVal = @getNumeralValue(val)
 
     @setState(
       value: formatVal
     , =>
-      setCaretPosition(node, @state.pos)
+      #setCaretPosition(node, @state.pos)
     )
 
   changeHandler:()->
     node = @getDOMNode()
     val = node.value
-    pos = getCaretPosition(node)
-    pos = @formatPos(@state.value, pos)
+    #pos = getCaretPosition(node)
+    #pos = @formatPos(@state.value, pos)
 
 
-    #1,000,000 -> 1000000
-    reTest = re.test(val)
-    if not reTest
-      val = numeral(val).value()
-      oVal = numeral(@state.val)
-      if ((oVal+'').length < (val+'').length)
-        pos = @focusOnChar(val, pos++)
-      else if ((oVal+'').length > (val+'').length)
-        pos = @focusOnChar(val, pos--)
-      else
-        pos = @focusOnChar(val, pos)
+    ##1,000,000 -> 1000000
+    #reTest = re.test(val)
+    #if not reTest
+      #val = numeral(val).value()
+      #oVal = numeral(@state.val)
+      #if ((oVal+'').length < (val+'').length)
+        #pos = @focusOnChar(val, pos++)
+      #else if ((oVal+'').length > (val+'').length)
+        #pos = @focusOnChar(val, pos--)
+      #else
+        #pos = @focusOnChar(val, pos)
+    val = numeral(val).value()
 
     #parentNode onChange function
     @setState(
-      pos: pos
+      #pos: pos
       value: val
     , =>
       if @props.onChange
