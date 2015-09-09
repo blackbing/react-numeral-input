@@ -56,18 +56,32 @@
 
 	var Forms = React.createClass({
 	  getInitialState: function(){
-	    return { numeralVal: 1000000 };
+	    return {
+	      numeralVal: 1000000,
+	      numeralVal2: 2000000
+	    };
 	  },
 	  onChange: function(val){
 	    this.setState({numeralVal: val})
 	  },
+	  onChange2: function(val){
+	    this.setState({numeralVal2: val})
+	  },
 	  render: function(){
-	    return NumeralInput({
-	      value: this.state.numeralVal,
-	      className: "form-control input-lg",
-	      placeholder: "feed me number",
-	      onChange:this.onChange
-	    });
+	    return React.DOM.div( {},
+	      NumeralInput({
+		value: this.state.numeralVal,
+		className: "form-control input-lg",
+		placeholder: "feed me number",
+		onChange:this.onChange
+	      }),
+	      NumeralInput({
+		value: this.state.numeralVal2,
+		className: "form-control input-lg",
+		placeholder: "feed me number",
+		onChange:this.onChange2
+	      })
+	    )
 	  }
 	});
 
@@ -20542,41 +20556,22 @@
 	    return numeral(val).format(this.props.fmt);
 	  },
 	  componentWillReceiveProps: function(nextProps) {
-	    var dot_sp, formatVal, node, val;
+	    var formatVal, node, val;
 	    node = this.getDOMNode();
 	    val = nextProps.value;
-	    if (!re.test(val)) {
-	      formatVal = this.getNumeralValue(val);
-	      dot_sp = formatVal.split(',');
-	    }
+	    formatVal = this.getNumeralValue(val);
 	    return this.setState({
 	      value: formatVal
 	    }, (function(_this) {
-	      return function() {
-	        return setCaretPosition(node, _this.state.pos);
-	      };
+	      return function() {};
 	    })(this));
 	  },
 	  changeHandler: function() {
-	    var node, oVal, pos, reTest, val;
+	    var node, val;
 	    node = this.getDOMNode();
 	    val = node.value;
-	    pos = getCaretPosition(node);
-	    pos = this.formatPos(this.state.value, pos);
-	    reTest = re.test(val);
-	    if (!reTest) {
-	      val = numeral(val).value();
-	      oVal = numeral(this.state.val);
-	      if ((oVal + '').length < (val + '').length) {
-	        pos = this.focusOnChar(val, pos++);
-	      } else if ((oVal + '').length > (val + '').length) {
-	        pos = this.focusOnChar(val, pos--);
-	      } else {
-	        pos = this.focusOnChar(val, pos);
-	      }
-	    }
+	    val = numeral(val).value();
 	    return this.setState({
-	      pos: pos,
 	      value: val
 	    }, (function(_this) {
 	      return function() {

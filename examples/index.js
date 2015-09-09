@@ -3,18 +3,32 @@ var NumeralInput = React.createFactory(require('../dist/index'));
 
 var Forms = React.createClass({
   getInitialState: function(){
-    return { numeralVal: 1000000 };
+    return {
+      numeralVal: 1000000,
+      numeralVal2: 2000000
+    };
   },
   onChange: function(val){
     this.setState({numeralVal: val})
   },
+  onChange2: function(val){
+    this.setState({numeralVal2: val})
+  },
   render: function(){
-    return NumeralInput({
-      value: this.state.numeralVal,
-      className: "form-control input-lg",
-      placeholder: "feed me number",
-      onChange:this.onChange
-    });
+    return React.DOM.div( {},
+      NumeralInput({
+	value: this.state.numeralVal,
+	className: "form-control input-lg",
+	placeholder: "feed me number",
+	onChange:this.onChange
+      }),
+      NumeralInput({
+	value: this.state.numeralVal2,
+	className: "form-control input-lg",
+	placeholder: "feed me number",
+	onChange:this.onChange2
+      })
+    )
   }
 });
 
