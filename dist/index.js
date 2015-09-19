@@ -37,6 +37,7 @@ setCaretPosition = function(oField, index) {
 
 NumeralInput = React.createClass({
   displayName: 'NumeralInput',
+  node: null,
   propTypes: {
     onChange: React.PropTypes.func,
     fmt: React.PropTypes.string
@@ -47,12 +48,17 @@ NumeralInput = React.createClass({
     };
   },
   formatPos: function(val, index) {
-    var dotCount, sub;
+    var dotCount, pos, sub;
     val = numeral().unformat(val);
     val = numeral(val).format(this.props.fmt);
-    sub = val.substr(0, index);
-    dotCount = sub.split(',').length - 1;
-    return index - dotCount;
+    sub = val.substr(0, index - 1);
+    dotCount = sub.split(',').length;
+    pos = index - dotCount;
+    if (pos > 0) {
+      return pos;
+    } else {
+      return 0;
+    }
   },
   focusOnChar: function(val, index) {
     var char, dotCount, finalIndex, formatVal, i;
@@ -87,22 +93,47 @@ NumeralInput = React.createClass({
     return numeral(val).format(this.props.fmt);
   },
   componentWillReceiveProps: function(nextProps) {
-    var formatVal, node, val;
-    node = this.getDOMNode();
+    var formatVal, pos, val;
+    if (this.props.value === nextProps.value) {
+      return;
+    }
     val = nextProps.value;
+    pos = this.state.pos;
+    if (!re.test(val)) {
+      formatVal = this.getNumeralValue(val);
+    }
     formatVal = this.getNumeralValue(val);
     return this.setState({
       value: formatVal
     }, (function(_this) {
-      return function() {};
+      return function() {
+        var node;
+        node = _this.getDOMNode();
+        return setCaretPosition(node, _this.state.pos);
+      };
     })(this));
   },
   changeHandler: function() {
-    var node, val;
+    var node, oVal, pos, reTest, val;
     node = this.getDOMNode();
+    pos = getCaretPosition(node);
     val = node.value;
+    pos = this.formatPos(this.state.value, pos);
+    reTest = re.test(val);
+    if (!reTest) {
+      val = numeral(val).value();
+      oVal = numeral(this.state.val);
+      if ((oVal + '').length < (val + '').length) {
+        pos = this.focusOnChar(val, ++pos);
+      } else if ((oVal + '').length > (val + '').length) {
+        pos = this.focusOnChar(val, --pos);
+      } else {
+        pos = this.focusOnChar(val, pos);
+      }
+    }
     val = numeral(val).value();
     return this.setState({
+      pos: pos,
       value: val
     }, (function(_this) {
       return function() {
