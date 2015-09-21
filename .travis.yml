@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+ - "0.12"
+branches:
+  only:
+    - feature/es6
+notifications:
+  email:
+    - blackbing@gmail.com
