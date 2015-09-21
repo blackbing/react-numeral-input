@@ -4,6 +4,7 @@ node_js:
 branches:
   only:
     - feature/es6
+    - master
 notifications:
   email:
     - blackbing@gmail.com
