@@ -1,5 +1,6 @@
 /* jshint node: true */
 var path = require('path');
+var webpack = require('webpack');
 
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname),
     filename: 'dist/index.js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
     library: 'NumeralInput'
   },
 
@@ -31,5 +32,11 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      mangle: false
+    })
+  ]
 };
