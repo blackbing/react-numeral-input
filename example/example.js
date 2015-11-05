@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('React');
 var numeral = require('numeral');
 var NumeralInput = React.createFactory(require('../dist/index'));
 /* jshint undef:false */
