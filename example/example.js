@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var numeral = require('numeral');
 var NumeralInput = React.createFactory(require('../dist/index'));
 /* jshint undef:false */
@@ -33,4 +34,4 @@ var Forms = React.createClass({
   }
 });
 //React.render(React.createElement(ReactNumeralInput), document.getElementById('main'));
-React.render( React.createElement(Forms) , document.querySelector('#app'));
+ReactDOM.render( React.createElement(Forms) , document.querySelector('#app'));
