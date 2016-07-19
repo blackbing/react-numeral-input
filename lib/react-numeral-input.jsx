@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import numeral from 'numeral';
 
@@ -100,12 +101,12 @@ const NumeralInput = React.createClass({
     this.setState( {
       value: formatVal
     }, () => {
-      const node = this.getDOMNode();
+      const node = ReactDOM.findDOMNode(this);
       setCaretPosition(node, this.state.pos);
     });
   },
   changeHandler: function() {
-    const node = this.getDOMNode();
+    const node = ReactDOM.findDOMNode(this);
     let pos = getCaretPosition(node);
     let val = node.value;
     pos = this.formatPos(this.state.value, pos);
@@ -137,8 +138,9 @@ const NumeralInput = React.createClass({
     })
   },
   render: function() {
+    const { fmt, ...rest} = this.props;
     return (
-      <input type="text" {...this.props}
+      <input type="text" {...rest}
         value={this.state.value}
         onChange = {this.changeHandler}
       />
