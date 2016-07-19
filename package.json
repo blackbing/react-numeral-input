@@ -31,8 +31,9 @@
     "karma-webpack": "~1.7.0",
     "numeral": "^1.5.3",
     "phantomjs-prebuilt": "^2.1.7",
-    "react-addons-test-utils": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "react": "^15.2.0",
+    "react-addons-test-utils": "^15.2.0",
+    "react-dom": "^15.2.0",
     "webpack": "~1.11.0",
     "webpack-dev-server": "~1.10.1"
   },
