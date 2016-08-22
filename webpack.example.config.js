@@ -5,20 +5,11 @@ var webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname),
-  entry: './lib/index.js',
+  entry: './example/example.js',
 
   output: {
     path: path.join(__dirname),
-    filename: 'dist/index.js',
-    libraryTarget: 'umd',
-    library: 'NumeralInput'
-  },
-
-  externals: {
-   'react': 'React',
-   'react/addons': 'react/addons',
-   'react-dom': 'ReactDOM',
-   'numeral': 'numeral'
+    filename: './example/example.bundle.js',
   },
 
   module: {
