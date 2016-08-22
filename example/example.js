@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var numeral = require('numeral');
-var NumeralInput = React.createFactory(require('../dist/index'));
+var NumeralInput = React.createFactory(require('../lib'));
 /* jshint undef:false */
 var Forms = React.createClass({
   getInitialState: function(){
