@@ -10,13 +10,13 @@ module.exports = {
   output: {
     path: path.join(__dirname),
     filename: 'dist/index.js',
+    libraryTarget: 'umd',
     library: 'NumeralInput'
   },
 
   externals: {
-   'react': 'React',
-   'react/addons': 'react/addons',
-   'react-dom': 'ReactDOM',
+   'react': 'react',
+   'react-dom': 'react-dom',
    'numeral': 'numeral'
   },
 
