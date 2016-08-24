@@ -10,7 +10,6 @@ module.exports = {
   output: {
     path: path.join(__dirname),
     filename: 'dist/index.js',
-    libraryTarget: 'umd',
     library: 'NumeralInput'
   },
 
