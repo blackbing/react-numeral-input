@@ -34,13 +34,20 @@ const setCaretPosition = function(oField, index) {
 const NumeralInput = React.createClass({
   displayName: 'NumeralInput',
   propTypes: {
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    fmt: React.PropTypes.string
   },
+  getDefaultProps: function() {
+     return {
+       fmt: fmt
+     };
+   },
   formatPos: function(val, index) {
     //unformat
     val = numeral().unformat(val);
     //format
-    val = numeral(val).format(fmt);
+    //
+    val = numeral(val).format(this.props.fmt);
     let sub = val.substr(0, index-1);
     let dotCount  = sub.split(',').length;
     let pos = index-dotCount;
@@ -50,7 +57,7 @@ const NumeralInput = React.createClass({
     return pos;
   },
   focusOnChar: function(val, index) {
-    let formatVal = numeral(val).format(fmt);
+    let formatVal = numeral(val).format(this.props.fmt);
     let dotCount=0;
 
     let i = 0;
@@ -79,7 +86,7 @@ const NumeralInput = React.createClass({
     };
   },
   getNumeralValue: function(val) {
-    return numeral(val).format(fmt);
+    return numeral(val).format(this.props.fmt);
   },
   componentWillReceiveProps: function(nextProps) {
     if( this.props.value === nextProps.value){
@@ -133,8 +140,9 @@ const NumeralInput = React.createClass({
     })
   },
   render: function() {
+    const { fmt, ...rest} = this.props;
     return (
-      <input type="text" {...this.props}
+      <input type="text" {...rest}
         value={this.state.value}
         onChange = {this.changeHandler}
       />
