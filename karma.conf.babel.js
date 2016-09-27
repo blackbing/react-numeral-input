@@ -1,7 +1,7 @@
 import path from 'path'
-import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
+import webpack from 'webpack'
 
-module.exports = function(config) {
+export default config => {
   const { env } = process
 
   const isCi = env.CONTINUOUS_INTEGRATION === 'true'
@@ -13,8 +13,8 @@ module.exports = function(config) {
   if (runCoverage) {
     coverageLoaders.push({
       test: /\.js$/,
-      include: path.resolve('lib/'),
-      exclude: /spec/,
+      include: path.resolve('src/'),
+      exclude: /__tests__/,
       loader: 'isparta'
     })
 
@@ -24,72 +24,51 @@ module.exports = function(config) {
       coverageReporters.push('coveralls')
     }
   }
+
   config.set({
-    basePath: '.',
+    frameworks: [ 'mocha' ],
 
-    frameworks: ['jasmine'],
-    browsers: ['PhantomJS'],
-
-    files: [
-      // shim to workaroud PhantomJS 1.x lack of `bind` support
-      // see: https://github.com/ariya/phantomjs/issues/10522
-      //'node_modules/es5-shim/es5-shim.js',
-
-      // React is an external dependency of the component
-      //'node_modules/react/dist/react-with-addons.js',
-
-      //'spec/spec-helper.js',
-      'spec/index.js'
-      //{ pattern: 'lib/**/*', watched: true, included: false }
-    ],
+    files: [ 'tests.webpack.js' ],
 
     preprocessors: {
-      // add webpack as preprocessor
-      'spec/*': ['webpack', 'sourcemap']
+      'tests.webpack.js': [ 'webpack', 'sourcemap' ]
     },
 
     webpack: {
-      devtool: 'inline-source-map',
       module: {
         loaders: [
-          {
-            test: /(\.js)|(\.jsx)$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-              optional: ['runtime'],
-              stage: 0
-            }
-          }
+          { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+          ...coverageLoaders
         ]
       },
-      resolve: {
-        extensions: ['', '.js', '.json', '.jsx'],
-        modulesDirectories: ['node_modules', 'src'],
-      },
+      plugins: [
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify('test')
+        })
+      ],
+      devtool: 'inline-source-map'
     },
 
-    webpackServer: {
+    webpackMiddleware: {
       noInfo: true
     },
 
-    reporters: [ ...coverageReporters ],
+    reporters: [ 'mocha', ...coverageReporters ],
 
     coverageReporter: {
       type: 'lcov',
       dir: 'coverage'
     },
 
-    singleRun: true
-  });
-};
+    customLaunchers: {
+      ChromeCi: {
+        base: 'Chrome',
+        flags: [ '--no-sandbox' ]
+      }
+    },
 
+    browsers: isCi ? [ env.BROWSER ] : [ 'Chrome', 'Firefox' ],
 
-/**
-  Loads configuration while ensuring sounce-map is enabled
- */
-function loadWebpackConfig () {
-  var webpackConfig = require('./webpack.config.js');
-  webpackConfig.devtool = 'inline-source-map';
-  return webpackConfig;
+    singleRun: isCi
+  })
 }
