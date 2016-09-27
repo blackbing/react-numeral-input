@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 
 import numeral from 'numeral';
 
-const re = /[^0-9km,]+/;
-const fmt = '0,0';
+const reg = /[^0-9km,]+/g;
+const default_fmt = '0,0';
 
-const getCaretPosition = function(oField) {
+const getCaretPosition = function(oField, fmt = default_fmt) {
   let iCaretPos = 0;
+  const prefix = reg.exec(fmt);
+  if (prefix && prefix.length) {
+    iCaretPos += prefix[0].length;
+  }
   if(document.selection){
     oField.focus();
     oSel = document.selection.createRange();
@@ -39,7 +43,7 @@ const NumeralInput = React.createClass({
   },
   getDefaultProps: function() {
      return {
-       fmt: fmt
+       fmt: default_fmt
      };
    },
   formatPos: function(val, index) {
@@ -95,7 +99,7 @@ const NumeralInput = React.createClass({
     let val = nextProps.value;
     let formatVal = '';
 
-    if (!re.test(val)) {
+    if (!reg.test(val)) {
       formatVal = this.getNumeralValue(val);
     }
     formatVal = this.getNumeralValue(val);
@@ -104,18 +108,18 @@ const NumeralInput = React.createClass({
       value: formatVal
     }, () => {
       const node = ReactDOM.findDOMNode(this);
-      setCaretPosition(node, this.state.pos);
+      setCaretPosition(node, this.state.pos, this.props.fmt);
     });
   },
   changeHandler: function() {
     const node = ReactDOM.findDOMNode(this);
-    let pos = getCaretPosition(node);
+    let pos = getCaretPosition(node, this.props.fmt);
     let val = node.value;
     pos = this.formatPos(this.state.value, pos);
 
 
     //1,000,000 -> 1000000
-    const reTest = re.test(val);
+    const reTest = reg.test(val);
     if (!reTest) {
       val = numeral(val).value();
       let oVal = numeral(this.state.val);
