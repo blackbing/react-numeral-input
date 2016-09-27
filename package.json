@@ -56,8 +56,8 @@
   },
   "scripts": {
     "babel-karma": "babel-node --eval \"require('karma/lib/cli').run()\"",
-    "test": "eslint lib/ spec/ && npm run babel-karma -- start --single-run",
-    "watch-test": "npm run babel-karma -- start --auto-watch --no-single-run",
+    "test": "eslint lib/ spec/ && karma start --single-run",
+    "watch-test": "karma start --auto-watch --no-single-run",
     "example": "webpack --config webpack.example.config.js && open example/index.html",
     "build": "webpack",
     "start": "webpack-dev-server --inline --hot"
