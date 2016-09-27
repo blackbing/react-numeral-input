@@ -1,6 +1,29 @@
+import path from 'path'
 import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
 
 module.exports = function(config) {
+  const { env } = process
+
+  const isCi = env.CONTINUOUS_INTEGRATION === 'true'
+  const runCoverage = env.COVERAGE === 'true' || isCi
+
+  const coverageLoaders = []
+  const coverageReporters = []
+
+  if (runCoverage) {
+    coverageLoaders.push({
+      test: /\.js$/,
+      include: path.resolve('lib/'),
+      exclude: /spec/,
+      loader: 'isparta'
+    })
+
+    coverageReporters.push('coverage')
+
+    if (isCi) {
+      coverageReporters.push('coveralls')
+    }
+  }
   config.set({
     basePath: '.',
 
@@ -48,6 +71,13 @@ module.exports = function(config) {
 
     webpackServer: {
       noInfo: true
+    },
+
+    reporters: [ ...coverageReporters ],
+
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage'
     },
 
     singleRun: true
