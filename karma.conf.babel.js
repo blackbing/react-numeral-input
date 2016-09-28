@@ -5,7 +5,8 @@ export default config => {
   const { env } = process
 
   const isCi = env.CONTINUOUS_INTEGRATION === 'true'
-  const runCoverage = env.COVERAGE === 'true' || isCi
+  //FIXME: temp remove coverage setting
+  const runCoverage = false; //env.COVERAGE === 'true' || isCi
 
   const coverageLoaders = []
   const coverageReporters = []
