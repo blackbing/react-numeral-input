@@ -1,6 +1,6 @@
 {
   "name": "react-numeral-input",
-  "version": "0.3.3",
+  "version": "0.4.1",
   "description": "react numeral input",
   "author": "Bingo Yang <blackbing@gmail.com>",
   "repository": {
@@ -21,13 +21,18 @@
     "es5-shim": "~4.1.10",
     "eslint": "~2.2.0",
     "eslint-plugin-react": "^5.1.1",
-    "jasmine": "~2.3.2",
-    "jasmine-core": "~2.3.4",
-    "karma": "~0.13.9",
-    "karma-jasmine": "~0.3.6",
+    "expect": "^1.20.2",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-coveralls": "^1.1.2",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-mocha": "^1.2.0",
+    "karma-mocha-reporter": "^2.2.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "~0.3.5",
     "karma-webpack": "~1.7.0",
+    "mocha": "^3.1.0",
     "numeral": "^1.5.3",
     "phantomjs-prebuilt": "^2.1.7",
     "react": "^15.2.0",
@@ -36,7 +41,6 @@
     "webpack": "~1.11.0",
     "webpack-dev-server": "~1.10.1"
   },
-  "homepage": "https://github.com/blackbing/react-numeral-input",
   "keywords": [
     "react",
     "react-component",
@@ -50,14 +54,9 @@
     "react-dom": "^15.0.0",
     "numeral": "^1.5"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blackbing/react-numeral-input.git"
-  },
   "scripts": {
-    "babel-karma": "babel-node --eval \"require('karma/lib/cli').run()\"",
-    "test": "eslint lib/ spec/ && npm run babel-karma -- start --single-run",
-    "watch-test": "npm run babel-karma -- start --auto-watch --no-single-run",
+    "test": "eslint src/ && karma start --single-run",
+    "watch-test": "karma start --auto-watch --no-single-run",
     "example": "webpack --config webpack.example.config.js && open example/index.html",
     "build": "webpack",
     "start": "webpack-dev-server --inline --hot"

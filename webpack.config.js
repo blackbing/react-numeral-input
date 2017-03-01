@@ -5,7 +5,7 @@ var webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname),
-  entry: './lib/index.js',
+  entry: './src/index.js',
 
   output: {
     path: path.join(__dirname),
