@@ -90,7 +90,10 @@ const NumeralInput = React.createClass({
     };
   },
   getNumeralValue: function(val) {
-    return numeral(val).format(this.props.fmt);
+    if (val) {
+      return numeral(val).format(this.props.fmt);
+    }
+    return '';
   },
   componentWillReceiveProps: function(nextProps) {
     if( this.props.value === nextProps.value){
@@ -102,7 +105,7 @@ const NumeralInput = React.createClass({
     if (!reg.test(val)) {
       formatVal = this.getNumeralValue(val);
     }
-    formatVal = this.getNumeralValue(val);
+    // formatVal = this.getNumeralValue(val);
 
     this.setState( {
       value: formatVal
@@ -136,7 +139,7 @@ const NumeralInput = React.createClass({
     //parentNode onChange function
     this.setState( {
       pos: pos,
-      value: val
+      value: val || ''
     }, () => {
       if (this.props.onChange) {
         this.props.onChange(val);
