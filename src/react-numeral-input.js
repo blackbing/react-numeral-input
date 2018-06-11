@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -35,18 +36,19 @@ const setCaretPosition = function(oField, index) {
   }
 };
 
-const NumeralInput = React.createClass({
-  displayName: 'NumeralInput',
-  propTypes: {
-    onChange: React.PropTypes.func,
-    fmt: React.PropTypes.string
-  },
-  getDefaultProps: function() {
-     return {
-       fmt: default_fmt
-     };
-   },
-  formatPos: function(val, index) {
+class NumeralInput extends React.Component {
+  static displayName = 'NumeralInput';
+
+  static propTypes = {
+    onChange: PropTypes.func,
+    fmt: PropTypes.string
+  };
+
+  static defaultProps = {
+    fmt: default_fmt
+  };
+
+  formatPos = (val, index) => {
     //unformat
     val = numeral().unformat(val);
     //format
@@ -59,8 +61,9 @@ const NumeralInput = React.createClass({
       pos = 0;
     }
     return pos;
-  },
-  focusOnChar: function(val, index) {
+  };
+
+  focusOnChar = (val, index) => {
     let formatVal = numeral(val).format(this.props.fmt);
     let dotCount=0;
 
@@ -81,21 +84,16 @@ const NumeralInput = React.createClass({
       finalIndex = 1;
     }
     return finalIndex;
-  },
-  getInitialState: function() {
-    return {
-      inputStyle: this.props.inputStyle,
-      placeholder: this.props.placeholder,
-      value: this.getNumeralValue(this.props.value)
-    };
-  },
-  getNumeralValue: function(val) {
+  };
+
+  getNumeralValue = (val) => {
     if (val) {
       return numeral(val).format(this.props.fmt);
     }
     return '';
-  },
-  componentWillReceiveProps: function(nextProps) {
+  };
+
+  componentWillReceiveProps(nextProps) {
     if( this.props.value === nextProps.value){
       return;
     }
@@ -113,8 +111,9 @@ const NumeralInput = React.createClass({
       const node = ReactDOM.findDOMNode(this);
       setCaretPosition(node, this.state.pos, this.props.fmt);
     });
-  },
-  changeHandler: function() {
+  }
+
+  changeHandler = () => {
     const node = ReactDOM.findDOMNode(this);
     let pos = getCaretPosition(node, this.props.fmt);
     let val = node.value;
@@ -145,8 +144,15 @@ const NumeralInput = React.createClass({
         this.props.onChange(val);
       }
     })
-  },
-  render: function() {
+  };
+
+  state = {
+    inputStyle: this.props.inputStyle,
+    placeholder: this.props.placeholder,
+    value: this.getNumeralValue(this.props.value)
+  };
+
+  render() {
     const { fmt, ...rest} = this.props;
     return (
       <input type="text" {...rest}
@@ -155,6 +161,6 @@ const NumeralInput = React.createClass({
       />
     );
   }
-});
+}
 
 export default NumeralInput;
