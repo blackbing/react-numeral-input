@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -39,8 +40,8 @@ class NumeralInput extends React.Component {
   static displayName = 'NumeralInput';
 
   static propTypes = {
-    onChange: React.PropTypes.func,
-    fmt: React.PropTypes.string
+    onChange: PropTypes.func,
+    fmt: PropTypes.string
   };
 
   static defaultProps = {
