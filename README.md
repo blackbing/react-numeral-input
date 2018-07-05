@@ -6,6 +6,10 @@ ex. 1000000 -> 1,000,000
 
 [![react-numeral-input](http://i.imgur.com/7eUVb7z.gif)](http://i.imgur.com/7eUVb7z.gif)
 
+use Number Keyboard on device
+
+[![use Number Keyboard on device](https://d.pr/free/i/xfL3Ok.png)](https://d.pr/free/i/xfL3Ok.png)
+
 # Live Demo
 
 [react-numeral-input](http://blackbing.github.io/react-numeral-input/)
