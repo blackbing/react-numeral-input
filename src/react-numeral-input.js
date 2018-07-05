@@ -149,7 +149,7 @@ const NumeralInput = React.createClass({
   render: function() {
     const { fmt, ...rest} = this.props;
     return (
-      <input type="text" {...rest}
+      <input type="tel" {...rest}
         value={this.state.value}
         onChange = {this.changeHandler}
       />
