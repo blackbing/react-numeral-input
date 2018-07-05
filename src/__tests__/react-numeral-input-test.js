@@ -18,7 +18,7 @@ describe('ReactNumeralInput', function() {
   });
 
   it('should render', function() {
-    expect(ReactDOM.findDOMNode(component).type).toBe('text');
+    expect(ReactDOM.findDOMNode(component).type).toBe('tel');
   });
 
   it('should formatPos', function() {
